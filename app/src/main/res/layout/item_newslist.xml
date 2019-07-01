@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="newsItem" type="com.example.hackernews.presentation.model.NewsItem"/>
+    </data>
+    <androidx.cardview.widget.CardView
+            android:id="@+id/news_item_cv"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/news_title_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:clickable="false"
+                    android:text="@{newsItem.title}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/score_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp" android:paddingStart="8dp"
+                    android:paddingEnd="0dp" android:paddingRight="0dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorGrey"
+                    android:clickable="false"
+                    android:paddingBottom="8dp"
+                    app:setScore="@{newsItem.score}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/news_title_tv"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/news_by_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorGrey"
+                    android:paddingBottom="8dp"
+                    android:clickable="false"
+                    app:setBy="@{newsItem.by}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/news_title_tv"
+                    app:layout_constraintStart_toEndOf="@id/score_tv"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/comments_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp" android:paddingStart="8dp"
+                    android:paddingEnd="8dp" android:paddingRight="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorGrey"
+                    android:clickable="false"
+                    app:setComments="@{newsItem.descendants}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/news_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

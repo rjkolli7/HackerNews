@@ -1,0 +1,11 @@
+{
+    "by": "entee",
+    "id": 19381514,
+    "kids": [
+        19381842
+    ],
+    "parent": 19380630,
+    "text": "This is super cool! People underestimate how insanely chaotic a cell is at a molecular level. Often diagrams show blobs cleanly interacting but the reality is more like the images linked here:<p><a href=\"https:&#x2F;&#x2F;mgl.scripps.edu&#x2F;people&#x2F;goodsell&#x2F;illustration&#x2F;public&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;mgl.scripps.edu&#x2F;people&#x2F;goodsell&#x2F;illustration&#x2F;public&#x2F;</a><p>Everything touches everything. Everything is always moving around.<p>This work suggests that the cell has taken advantage of this enormous challenge. If everything is always in motion, that means you have trouble controlling things, but that gives you a chance to maximally sample your environment. This makes this sort of efficient data processing possible. Downstream are a number of mechanisms that help make sense of that signaling, denoising the chaos. One example from a lab I worked in briefly (old but still cool):<p><a href=\"https:&#x2F;&#x2F;www.sciencedirect.com&#x2F;science&#x2F;article&#x2F;pii&#x2F;S0092867411002431\" rel=\"nofollow\">https:&#x2F;&#x2F;www.sciencedirect.com&#x2F;science&#x2F;article&#x2F;pii&#x2F;S009286741...</a><p><a href=\"https:&#x2F;&#x2F;www.ncbi.nlm.nih.gov&#x2F;pubmed&#x2F;18599789\" rel=\"nofollow\">https:&#x2F;&#x2F;www.ncbi.nlm.nih.gov&#x2F;pubmed&#x2F;18599789</a>",
+    "time": 1552499979,
+    "type": "comment"
+}

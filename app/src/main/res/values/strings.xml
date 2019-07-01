@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Hacker News</string>
+
+    <string name="points">points</string>
+    <string name="by">by</string>
+    <string name="comments">comments</string>
+
+    <string name="space">\u0020</string>
+    <string name="no_replies">No Replies</string>
+    <string name="replies">Replies</string>
+</resources>

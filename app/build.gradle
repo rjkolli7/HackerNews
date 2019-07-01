@@ -1,0 +1,161 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+apply plugin: 'jacoco'
+
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'com.app.simplelogin.testing.OpenClass'
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/**/*.ec'
+    ])
+}
+
+android {
+    compileSdkVersion androidConfig.compileSdkVersion
+    defaultConfig {
+        applicationId "com.example.hackernews"
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        buildConfigField("String", "BASE_URL", "\"https://hacker-news.firebaseio.com/v0/\"")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    testOptions {
+        animationsDisabled true
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
+
+    sourceSets {
+        test {
+            java.srcDirs += "$projectDir/src/testShared"
+        }
+
+        androidTest {
+            java.srcDirs += "$projectDir/src/testShared"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // android standard libraries
+    implementation dep.androidxAppCompactDep
+    implementation dep.constraintLayoutDep
+
+    // kotlin standard libraries
+    implementation dep.kotlinDep
+    implementation dep.androidxCoreKtxDep
+
+    // navigation
+    implementation dep.navigationFragmentKtxDep
+    implementation dep.navigationUiKtxDep
+
+    // life cycle
+    implementation dep.lifecycleRuntime
+    implementation dep.lifecycleExtension
+    annotationProcessor dep.lifecycleCompiler
+
+    // shimmer for list loading
+    implementation dep.shimmerDep
+
+    // DataBinding
+    kapt dep.dataBindingKaptDep
+
+    // dagger
+    implementation dep.daggerDep
+    implementation dep.daggerAndroidDep
+    implementation dep.daggerAndroidSupportDep
+    kapt dep.daggerAndroidProDep
+    kapt dep.daggerCompilerDep
+
+    // RX libraries
+    implementation dep.rxJavaDep
+    implementation dep.rxAndroidDep
+    implementation dep.rxKotlinDep
+
+    // network
+    implementation dep.retrofitDep
+    implementation dep.retrofitGson
+    implementation dep.retrofitRxAdapter
+    implementation dep.okhttpInterceptor
+
+    // design libraries
+    implementation dep.googleMaterialDep
+
+    // unit test
+    testImplementation testDep.jUnitTestDep
+    testImplementation testDep.robolecricTestDep
+    testImplementation 'org.mockito:mockito-core:2.25.0'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.8.1'
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+    testImplementation 'androidx.test:core:1.2.0'
+
+    // android test
+    androidTestImplementation testDep.androidTestRunnerDep
+    androidTestImplementation testDep.androidExtJunitTestDep
+    androidTestImplementation testDep.androidEspressoTestDep
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'org.mockito:mockito-core:2.25.0'
+    androidTestImplementation 'org.mockito:mockito-android:2.25.0'
+    androidTestUtil 'androidx.test:orchestrator:1.2.0'
+
+    // expandable RecyclerView
+    implementation dep.groupieDep
+    implementation dep.groupieKotlinExtDep
+    implementation dep.groupieDataBindingDep
+}

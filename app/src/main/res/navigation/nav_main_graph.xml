@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_main_graph"
+            app:startDestination="@+id/newsListFragment">
+
+    <fragment
+            android:id="@+id/newsListFragment"
+            android:name="com.example.hackernews.ui.newslist.NewsListFragment"
+            android:label="News"
+            tools:layout="@layout/fragment_newslist">
+        <action
+                android:id="@+id/newsDetails"
+                app:destination="@id/newsDetailsFragment"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/newsDetailsFragment"
+            android:name="com.example.hackernews.ui.newsdetails.NewsDetailsFragment"
+            android:label="News Details"
+            tools:layout="@layout/fragment_news_details">
+        <argument
+                android:name="details"
+                android:defaultValue="@null"
+                app:nullable="true"
+                app:argType="com.example.hackernews.presentation.model.NewsItem"/>
+    </fragment>
+
+</navigation>
